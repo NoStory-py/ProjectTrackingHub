@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/Styles.css">
+    {% block title %}{% endblock %}
+</head>
+<body class = "auth">
+    {% set page_flashed_messages = get_flashed_messages(with_categories=true) %}
+    {% if page_flashed_messages %}
+        <ul class="flash-messages">
+            {% for category, message in page_flashed_messages %}
+                {% if category == 'auth' %}
+                    <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+

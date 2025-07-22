@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Styles1.css') }}">
+</head>
+<body>
+    <nav>
+        <ul class="menu">
+            <li><a href="{{ url_for('projects') }}" class="back-button">&#60; Projects</a></li>
+            <li class="project-name">{{ project.name }}</li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">&#9776;</a>
+                <ul class="dropdown-menu">
+                    <form class="Report" method="POST" action="{{ url_for('generate_report', project_id=project.id) }}" target="_blank">
+                        <button type="submit" class="button-primary">Generate Report</button>
+                    </form>
+                    {% if admin_association and admin_association[0] %}
+                    <li><a href="{{ url_for('delete_project', project_id=project.id) }}">Delete Project</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    {% set page_flashed_messages = get_flashed_messages(with_categories=true) %}
+    {% if page_flashed_messages %}
+        <ul class="flash-messages">
+            {% for category, message in page_flashed_messages %}
+                {% if category == 'user' %}
+                    <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if admin_association and admin_association[0] %}
+    <h1>Project Members:<h1>
+    <form class="add-user-form" action="{{ url_for('add_user_to_project', project_id=project.id) }}" method="POST">
+        <input type="text" name="email" placeholder="Enter moodle id/email" required>
+        <select name="add_as" id="add_as">
+            <option value="Member">Member</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <select name="add_with" id="add_with">
+            <option value="Email">Email</option>
+            <option value="Moodle">Moodle</option>
+        </select>
+        <button type="submit">Add User</button>
+    </form>
+    <form class="remove-user-form" action="{{ url_for('remove_user', project_id=project.id) }}" method="POST">
+        <input type="text" name="email" placeholder="Enter moodle id/email" required>
+        <select name="remove_with" id="remove_with">
+            <option value="Email">Email</option>
+            <option value="Moodle">Moodle</option>
+        </select>
+        <button type="submit">Remove User</button>
+    </form>
+    {% endif %}
+    <h1>Create Task List:</h1>
+    <form class="add-block-form" action="{{ url_for('add_block') }}" method="POST">
+        <input type="text" name="name" placeholder="Enter TaskList name" required>
+        <input type="hidden" name="project_id" value="{{ project.id }}">
+        <button type="submit">Add TaskList</button>
+    </form>
+
+    <h1>Tasks:</h1>
+    <div class="todo-container" id="todo-container">
+        {% for todo_block in todo_blocks %}
+        <div class="todo-block">
+            <h2>
+                {{ todo_block.name }}
+                <form class="delete-block-form" action="{{ url_for('delete_block', block_id=todo_block.id, project_id = todo_block.project_id) }}" method="POST">
+                    <button type="submit" class="delete-btn">x</button>
+                </form>
+                <!-- Edit task form (initially hidden) -->
+                <details class="edit-task-details">
+                    <summary class="edit-block-summary">Edit</summary>
+                    
+                    <form class="edit-block-form" action="{{ url_for('edit_block', block_id = todo_block.id, project_id = todo_block.project_id) }}" method="POST">
+                        <input type="text" name="block_name" value="{{ todo_block.name }}" placeholder="Edit Block name" required><br>
+                        <button type="submit">Save</button>
+                    </form>
+                    
+                </details>
+            </h2>
+            <form class="add-task-form" action="{{ url_for('add_task') }}" method="POST">
+                <input type="hidden" name="todo_block_id" value="{{ todo_block.id }}"> 
+                <input type="text" name="content" placeholder="Enter new task" required><br>
+                <input type="datetime-local" name="due_date" placeholder="Due date">
+                <button type="submit">Add Task</button>
+            </form>
+            <div class="task-list">
+                {% for todo in todo_block.todos %}
+                <div class="task-container"> 
+                <div class="task">
+                    <form class="update-task-form" action="{{ url_for('checkbox', todo_id=todo.id) }}" method="POST">
+                        <input type="checkbox" {% if todo.completed %}checked{% endif %} class="checkbox" id="task-{{ todo.id }}" onchange="this.form.submit()">
+                        <label for="task-{{ todo.id }}">{{ todo.content }}</label>
+                        {% if todo.completed %}
+                            {% if todo.due_date %}
+                                {% if todo.completed_before_due %}
+                                    <span class="completed-text"><strong>Completed before due: {{ todo.due_date.strftime('%Y-%m-%d %H:%M') }}</strong></span>
+                                {% else %}
+                                    <span class="completed-text"><strong>Completed after due: {{ todo.due_date.strftime('%Y-%m-%d %H:%M') }}</strong></span>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            {% if todo.due_date %}
+                            
+                                <span class="due-date"><strong>Due: {{ todo.due_date.strftime('%Y-%m-%d %H:%M') }}</strong></span>
+                            {% endif %}
+                         {% endif %}
+                    </form>
+                    <form class="delete-task-form" action="{{ url_for('delete_task', todo_id=todo.id) }}" method="POST">
+                        <button type="submit" class="delete-btn-task">x</button>
+                    </form>
+                    
+                    <!-- Edit task form (initially hidden) -->
+                    <details class="edit-task-details">
+                        <summary class="edit-task-summary">Edit</summary>
+                    <span>
+                        <form class="edit-task-form" action="{{ url_for('edit_task', todo_id=todo.id) }}" method="POST">
+                            
+                            <input type="text" name="content" value="{{ todo.content }}" placeholder="Edit task content" required>
+                            <!-- Check if todo.due_date is not None before formatting -->
+                            <input type="datetime-local" name="due_date" {% if todo.due_date %}value="{{ todo.due_date.strftime('%Y-%m-%dT%H:%M') }}"{% endif %} placeholder="Edit due date"><br>
+                          
+                            <button type="submit">Save</button>
+                
+                        </form>
+                    </span>
+                    </details>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

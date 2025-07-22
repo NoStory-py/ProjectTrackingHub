@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to ProTrackHub!</h1>
+    <h1>Log in to your account</h1>
+    <form action="/login" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Enter your Password" required><br><br>
+        <p class="forgot-password"> Forgot your password? <a href="/forgot_password">Reset it here</a></p>
+        <input type="submit" value="Login"> 
+    </form>
+
+    <p>Don't have an account? <a href="/signup">Sign up</a></p>
+{% endblock %}

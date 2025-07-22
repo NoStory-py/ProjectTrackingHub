@@ -1,0 +1,362 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+body.auth {
+    margin: 100px auto 0;
+    background-image: url("/static/Back1.png");
+}
+body.proj {
+    margin: 0;
+    background-image: url("/static/Back2.png");
+}
+
+h1, h2 {
+    text-align: center;
+    color: #000000;
+}
+
+h1 {
+    font-size: 26px;
+
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+    color: #000000;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 2px solid #545050;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #8FFFC7;
+    color: #373636;
+    padding: 10px;
+    margin: 2px 0;
+    border: 2px solid #545050;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: #80e5b3;
+}
+
+
+
+p {
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+p a {
+    color: blue;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+.forgot-password {
+    margin-top: 0;
+}
+
+.flash-messages {
+    list-style-type: none;
+    margin: 10px auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.flash-messages li {
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #bc0013;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* CSS from styles2.css */
+nav {
+    background-color: #333;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 0; /* Ensure no padding on the left */
+    padding-right: 0; /* Ensure no padding on the right */
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.menu li {
+    margin-left: 5px;
+}
+
+.menu li:last-child {
+    margin-left: 0;
+}
+
+.menu li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #8FFFC7;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 5px;
+    right: 0;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+.dropdown-toggle {
+    color: white;
+    display: block;
+    padding: 8px 12px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li a:hover {
+    color: #808080;
+}
+
+.projects-list {
+
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 10px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+.projects-list li {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 150px;
+    height: 150px;
+    background-color: #8FFFC7;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    display: flex; /* Use flexbox */
+    flex-direction: column;
+    justify-content: center; /* Align vertically */
+    align-items: center; /* Align horizontally */
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    overflow-wrap: break-word;
+    overflow: hidden; /* Ensure content is not clipped */
+}
+
+.projects-list li a {
+    color: black;
+    text-decoration: none;
+}
+
+.projects-list li:hover {
+    background-color: lightgrey;
+}
+
+.info {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: auto;
+}
+
+.info-btn {
+    width: 21px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #545050;
+    color: white;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: -5px;
+    right: 8;
+    margin-right: 10px; /* Adjust this value to add space from the right */
+    text-align: center; /* Centers the "i" icon horizontally */
+    font-weight: bold;
+}
+
+.info-btn-project {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 21px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #545050;
+    color: white;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+}
+
+.info-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1;
+}
+
+.info-content-project {
+    display: none;
+    position: fixed;
+    transform: translateX(50%);
+    transform: translateY(-10%);
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto; /* Adjust as needed */
+    max-width: 50%; /* Adjust as needed */
+    z-index: 2; /* Ensure the content appears above other elements */
+}
+
+.info-content h2,
+.info-content-project h2 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.info-content p,w
+.info-content-project p {
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.info-btn:hover + .info-content,
+.info-btn-project:hover + .info-content-project {
+    display: block;
+}
+
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+}
+
+label[for="default_template"] {
+    font-size: 20px;
+    line-height: auto;
+}
+
+.project-item {
+    position: relative;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    width: 150px;
+    height: auto; /* Adjust as needed */
+    background-color: #8FFFC7;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+
+.project-info {
+    position: relative;
+}
+
+.app-name {
+    text-align: center;
+    background-color: #f4f4f4;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.app-name h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.create-project{
+
+    width: 100%;
+    background-color: #8FFFC7;
+    color: #373636;
+    padding: 10px;
+    margin: 2px 2px 10px 2px;
+    border: 2px solid #545050;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}

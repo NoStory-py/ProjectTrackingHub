@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Sign Up</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Sign Up for a ProTrackHub Account</h1>
+    <form action="/signup" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your Username" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your Email" required><br>
+        <label for="moodle">Moodle ID:</label>
+        <input type="text" id="moodle" name="moodle" placeholder="Enter your moodle id"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required><br>
+        <label for="password">Re-Enter Password:</label>
+        <input type="password" id="password2" name="password2" placeholder="Re-Enter your password" required><br>
+
+        <input type="submit" value="Sign Up">
+    </form>
+    <p>Already have an account? <a href="/login">Login</a></p>
+{% endblock %}
