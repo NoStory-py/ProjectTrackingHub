@@ -1,5 +1,5 @@
 # ProjectTrackingHub
-Timeline: February – April 2024
+<b>Timeline: February - April 2024 <br></b>
 Project Tracking Hub is a web-based platform for managing and organizing detailed project information, enabling team collaboration, and automatically generating professional PDF reports with progress visualizations.
 
 
